@@ -464,37 +464,46 @@
                 <span class="text-primary font-label-caps text-label-caps uppercase tracking-[0.3em]">Get in Touch</span>
                 <h2 class="font-display-lg text-headline-md mt-4" id="cms-contact-heading">Project Inquiry</h2>
             </div>
-            <form class="space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="space-y-2">
-                        <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Name</label>
-                        <input type="text" placeholder="Your full name" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Email</label>
-                        <input type="email" placeholder="your@email.com" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30">
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="space-y-2">
-                        <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Phone</label>
-                        <input type="tel" placeholder="Contact number" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Address</label>
-                        <input type="text" placeholder="Project location" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30">
-                    </div>
-                </div>
-                <div class="space-y-2">
-                    <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Subject</label>
-                    <input type="text" placeholder="How can we help?" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30">
-                </div>
-                <div class="space-y-2">
-                    <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Message</label>
-                    <textarea rows="4" placeholder="Tell us about your roofing requirements..." class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30 resize-none"></textarea>
-                </div>
-                <button type="submit" class="w-full bg-primary text-on-primary py-4 rounded-lg font-label-caps uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-primary/10">Send Message</button>
-            </form>
+            <form name="roofing-leads" method="POST" data-netlify="true" class="space-y-6">
+    <!-- This hidden input helps Netlify securely identify the form name upon submission -->
+    <input type="hidden" name="form-name" value="roofing-leads" />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-2">
+            <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Name</label>
+            <!-- Added name="name" and required -->
+            <input type="text" name="name" required placeholder="Your full name" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30">
+        </div>
+        <div class="space-y-2">
+            <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Email</label>
+            <!-- Added name="email" and required -->
+            <input type="email" name="email" required placeholder="your@email.com" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30">
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-2">
+            <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Phone</label>
+            <!-- Added name="phone" and required -->
+            <input type="tel" name="phone" required placeholder="Contact number" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30">
+        </div>
+        <div class="space-y-2">
+            <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Address</label>
+            <!-- Added name="address" -->
+            <input type="text" name="address" placeholder="Project location" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30">
+        </div>
+    </div>
+    <div class="space-y-2">
+        <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Subject</label>
+        <!-- Added name="subject" -->
+        <input type="text" name="subject" placeholder="How can we help?" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30">
+    </div>
+    <div class="space-y-2">
+        <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Message</label>
+        <!-- Added name="message" and required -->
+        <textarea name="message" required rows="4" placeholder="Tell us about your roofing requirements..." class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30 resize-none"></textarea>
+    </div>
+    <button type="submit" class="w-full bg-primary text-on-primary py-4 rounded-lg font-label-caps uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-primary/10">Send Message</button>
+</form>
         </div>
 
         <!-- Right Column: Contact Info -->
