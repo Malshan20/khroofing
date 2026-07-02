@@ -781,4 +781,15 @@
     });
   }
 </script>
+        <script>
+  // Check if the form was just submitted successfully
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('success') === 'true') {
+    // Pop up a premium native notification (or trigger a custom modal design if you have one)
+    alert("Thank you! Your quote request has been sent securely. We'll be in touch shortly.");
+    
+    // Clean up the URL so it looks professional if they refresh
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+</script>
 </body></html>
