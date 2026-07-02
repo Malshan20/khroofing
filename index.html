@@ -1,0 +1,764 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>K.H. Roofing | Architectural Integrity. Permanent Solutions.</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;600&amp;family=Playfair+Display:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Scripts -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "background": "#121316",
+                        "on-secondary-container": "#b4b4bf",
+                        "outline-variant": "#4d463c",
+                        "surface-dim": "#121316",
+                        "inverse-on-surface": "#303034",
+                        "on-tertiary-container": "#334157",
+                        "surface-container-lowest": "#0d0e11",
+                        "inverse-primary": "#725b38",
+                        "on-error-container": "#ffdad6",
+                        "on-surface": "#e3e2e6",
+                        "secondary-container": "#454650",
+                        "surface-container-highest": "#343538",
+                        "on-primary-fixed": "#281800",
+                        "secondary": "#c5c6d1",
+                        "on-tertiary-fixed": "#0d1c30",
+                        "surface": "#121316",
+                        "outline": "#998f83",
+                        "on-primary-container": "#513d1d",
+                        "primary-container": "#c5a880",
+                        "on-secondary-fixed-variant": "#454650",
+                        "inverse-surface": "#e3e2e6",
+                        "on-secondary-fixed": "#191b23",
+                        "secondary-fixed": "#e1e1ed",
+                        "on-surface-variant": "#d1c5b8",
+                        "on-primary": "#402d0f",
+                        "surface-container-low": "#1b1b1f",
+                        "primary-fixed": "#fedeb2",
+                        "surface-tint": "#e0c298",
+                        "on-tertiary": "#233146",
+                        "error": "#ffb4ab",
+                        "secondary-fixed-dim": "#c5c6d1",
+                        "tertiary": "#bac8e3",
+                        "on-primary-fixed-variant": "#584323",
+                        "error-container": "#93000a",
+                        "on-background": "#e3e2e6",
+                        "on-secondary": "#2e3039",
+                        "primary-fixed-dim": "#e0c298",
+                        "tertiary-fixed-dim": "#b9c7e2",
+                        "surface-variant": "#343538",
+                        "primary": "#e2c399",
+                        "surface-container": "#1f1f23",
+                        "on-error": "#690005",
+                        "tertiary-container": "#9fadc7",
+                        "surface-bright": "#38393c",
+                        "tertiary-fixed": "#d5e3ff",
+                        "surface-container-high": "#292a2d",
+                        "on-tertiary-fixed-variant": "#3a475d"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "margin-mobile": "24px",
+                        "stack-lg": "64px",
+                        "gutter": "32px",
+                        "stack-sm": "12px",
+                        "margin-desktop": "80px",
+                        "stack-md": "24px",
+                        "container-max": "1440px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Hanken Grotesk"],
+                        "display-lg": ["Playfair Display"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Playfair Display"],
+                        "display-lg-mobile": ["Playfair Display"],
+                        "label-caps": ["Space Grotesk"],
+                        "headline-sm": ["Playfair Display"]
+                    },
+                    fontSize: {
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "headline-md": ["40px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "display-lg-mobile": ["48px", { "lineHeight": "1.1", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "600" }],
+                        "headline-sm": ["28px", { "lineHeight": "1.3", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #121316;
+            color: #e3e2e6;
+            overflow-x: hidden;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .bronze-glow:hover {
+            box-shadow: 0 0 30px rgba(197, 168, 128, 0.2);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        #map {
+            height: 600px;
+            z-index: 10;
+        }
+        .leaflet-container {
+            background: #0d0e11 !important;
+        }
+        .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+            background: #1f1f23 !important;
+            color: #e3e2e6 !important;
+            border: 1px solid rgba(197, 168, 128, 0.3);
+        }
+        .text-fluid-hero {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+        }
+        .bento-item {
+            transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        .bento-item:hover {
+            transform: translateY(-8px);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .accordion-item.active .accordion-content {
+            max-height: 200px;
+        }
+        .accordion-item.active .icon-rotate {
+            transform: rotate(180deg);
+        }
+        #mobile-menu {
+            transform: translateX(100%);
+        }
+    </style>
+</head>
+<body class="font-body-md selection:bg-primary/30 selection:text-primary">
+<!-- TopNavBar -->
+<nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] md:w-[90%] rounded-full border border-white/10 bg-surface/80 backdrop-blur-xl z-50 shadow-[0_0_20px_rgba(197,168,128,0.15)] flex justify-between items-center px-4 md:px-8 py-3 max-w-container-max mx-auto">
+<div class="font-display-lg text-headline-sm text-on-surface tracking-tight">K.H. Roofing</div>
+<div class="hidden md:flex gap-8 items-center font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant">
+<a class="hover:text-primary transition-all duration-300" href="#about">About</a>
+<a class="hover:text-primary transition-all duration-300" href="#services">Services</a>
+<a class="hover:text-primary transition-all duration-300" href="#coverage">Coverage Map</a>
+<a class="hover:text-primary transition-all duration-300" href="#reviews">Reviews</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary-container text-on-primary-container px-6 py-2.5 rounded-full font-label-caps text-[10px] uppercase tracking-widest hover:scale-105 active:scale-95 transition-all hidden sm:block">
+                24/7 Emergency
+            </button>
+<button class="md:hidden text-on-surface" id="menu-toggle">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+</div>
+</nav>
+<!-- Mobile Menu -->
+<div class="fixed inset-0 bg-surface z-[100] flex flex-col items-center justify-center gap-8 md:hidden" id="mobile-menu">
+<button class="absolute top-8 right-8 text-on-surface" id="menu-close">
+<span class="material-symbols-outlined text-4xl text-primary">close</span>
+</button>
+
+<a class="font-display-lg text-4xl text-on-surface hover:text-primary transition-colors" href="#about" onclick="toggleMenu()" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 20px);">About Us</a>
+<a class="font-display-lg text-4xl text-on-surface hover:text-primary transition-colors" href="#services" onclick="toggleMenu()" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 20px);">Services</a>
+<a class="font-display-lg text-4xl text-on-surface hover:text-primary transition-colors" href="#coverage" onclick="toggleMenu()" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 20px);">Coverage</a>
+<a class="font-display-lg text-4xl text-on-surface hover:text-primary transition-colors" href="#reviews" onclick="toggleMenu()" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 20px);">Reviews</a><button class="mt-8 bg-primary text-on-primary px-8 py-4 rounded-full font-label-caps tracking-widest">
+            0800 123 4567
+        </button>
+</div>
+<!-- Hero Section -->
+<section class="relative min-h-screen pt-32 pb-16 px-margin-mobile md:px-margin-desktop overflow-hidden">
+<div class="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-2 gap-stack-lg items-center">
+<div class="gsap-hero-left" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
+<h1 class="font-display-lg text-fluid-hero leading-none text-white mb-stack-md">
+                    <span id="cms-hero-line1">Architectural Roofing.</span><br>
+<span class="text-primary italic" id="cms-hero-highlight">Engineered</span> <span id="cms-hero-line2">For Generations.</span>
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mb-10" id="cms-hero-subtext">
+                    Master craftsmanship meets structural innovation. We specialize in bespoke heritage restoration and premium modern roofing across the North West.
+                </p>
+<div class="flex flex-wrap gap-6 mb-12">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">verified</span>
+<span class="text-label-caps font-label-caps" id="cms-badge-1">50 Year Lifespan</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">star</span>
+<span class="text-label-caps font-label-caps" id="cms-badge-2">4.9/5 Google Reviews</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">support_agent</span>
+<span class="text-label-caps font-label-caps" id="cms-badge-3">24/7 Support</span>
+</div>
+</div>
+</div>
+<!-- Glass Quote Form -->
+
+<div class="gsap-hero-right relative h-[500px] lg:h-[600px] rounded-xl overflow-hidden shadow-2xl border border-white/5 group">
+    <div class="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent z-10"></div>
+    <img id="cms-hero-img" src="https://lh3.googleusercontent.com/aida/AP1WRLvA6i0gU-pmyCvG6eMiVOLrcloRLZVV_Gt3Zb_h-7GXauRwy-cMO6QPwrYMmKCFWDDbOsh_UEiSVulV_ZETmsOP7u8zzYSBIoAeEJl8Jym8bt8BtE9NI1v4g-luuwz8v8ZKmSeHBIkunPNhH6cqumTRRvra72eMlbJPfemxVQL_84iFaqZUV20i9qQ-T30y0IJ_1Tze61VMBH8VL-Eec62JFy-H0T4tCHgCx7-AFX1z_jo1t4dfHjcWA59j" alt="Luxury architectural roofing project" class="w-full h-full object-cover transition-transform duration-[20s] group-hover:scale-110">
+    <div class="absolute bottom-8 left-8 z-20">
+        <div class="flex items-center gap-2 bg-surface/80 backdrop-blur-md px-4 py-2 rounded-full border border-primary/20">
+            <span class="material-symbols-outlined text-primary text-sm">location_on</span>
+            <span class="text-[10px] font-label-caps uppercase tracking-widest text-white" id="cms-hero-location">North West Heritage Project</span>
+        </div>
+    </div>
+</div></div>
+<!-- Cinematic Asset -->
+
+</section>
+<!-- About Us Section -->
+<section class="py-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="about">
+<div class="gsap-reveal grid grid-cols-1 md:grid-cols-2 gap-gutter items-center" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
+<div>
+<h2 class="font-display-lg text-headline-md mb-6" id="cms-about-heading">Our Heritage</h2>
+<p class="text-on-surface-variant font-body-lg mb-8" id="cms-about-text">
+                    We are a local family run roofing contractor providing a variety of top quality services at an affordable price. Over the last 10 years we have supplied impeccable services across the North West. Our priority is to be time efficient, competitively priced, and provide top quality workmanship.
+                </p>
+<div class="grid grid-cols-2 gap-8">
+<div>
+<div class="text-primary font-display-lg text-4xl mb-2" id="cms-stat1-number">10+</div>
+<p class="text-label-caps font-label-caps" id="cms-stat1-label">Years Excellence</p>
+</div>
+<div>
+<div class="text-primary font-display-lg text-4xl mb-2" id="cms-stat2-number">1k+</div>
+<p class="text-label-caps font-label-caps" id="cms-stat2-label">Projects Completed</p>
+</div>
+</div>
+</div>
+<div class="relative rounded-xl overflow-hidden h-[400px]">
+<img id="cms-about-img" alt="Workmanship close up" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVvBwI0BBvgFIn3aW2J6_BgvGuYxuRhh3MLwL2WVbvo7u7IYH-80ulq9uJvvbFxepyU2F_5bpKGvnEI_35Xq_MJekW2f2nTLbbBDsobChAVq8-nF13mzECgGdgkQpsZwB9w_c5XyZ3QmmO2-P6tyonEUnffor-_bW9aSSYT7XVSrlcV1YzdKU6iRFD2TG9tTXELWi91zxAz7XAe9U0Cio4lvMYx4ruvpQTmfp5EmgwLZL73P__s6oAs98Zz41yjYWaqpuJefYJC4V3">
+</div>
+</div>
+</section>
+<!-- Bento Services Grid -->
+<section class="py-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="services">
+<div class="mb-stack-lg">
+<h2 class="font-display-lg text-headline-md mb-4" id="cms-services-heading">Craftsmanship Services</h2>
+<p class="text-on-surface-variant max-w-2xl font-body-lg" id="cms-services-subtext">Precision engineering meets aesthetic perfection. Every roof is a masterpiece of durability.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto">
+<!-- Item 1: Slating & Tiling -->
+<div class="md:col-span-8 bento-item glass p-10 rounded-xl flex flex-col justify-between group overflow-hidden relative min-h-[300px]">
+<div class="z-10">
+<span class="material-symbols-outlined text-primary text-4xl mb-4" id="cms-service-1-icon">grid_view</span>
+<h3 class="font-headline-sm text-headline-sm mb-4" id="cms-service-1-title">Slating &amp; Tiling</h3>
+<p class="text-on-surface-variant max-w-md" id="cms-service-1-desc">Our roofing specialists replace broken slates and fallen tiles. We provide expert advice on the best action and materials pledge optimal quality.</p>
+</div>
+<div class="absolute right-0 bottom-0 w-1/2 h-full opacity-10 group-hover:opacity-30 transition-opacity">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTr-QAiurINydMoL7YgaYJai_BmtdrdSflY4iTdqRmOQVlGsnDDjFzL0f_CBz6Wycg4kxQKRgR2uukBBW9PCkg19b2GTcXSCdsfpnry7HqU_-_eWb_yfhjVka3P0QyhMiQ8WCHkwCKQ-QnC4rCvzoC3gKHR14dbCr96R7EoQsMNm-K--HGXpZ-WPXnHGKc8ELsthtLbAwc_CsZpUKEIuZ3BT9favdyhUayB4d4Do8sGBK_nS_Avd6pMSJu_jqSPgTzZ8fIenHzCqL_">
+</div>
+</div>
+<!-- Item 2: Roof Replacement -->
+<div class="md:col-span-4 bento-item glass p-10 rounded-xl flex flex-col justify-center text-center group">
+<span class="material-symbols-outlined text-primary text-4xl mb-4" id="cms-service-2-icon">home_repair_service</span>
+<h3 class="font-headline-sm text-headline-sm mb-4" id="cms-service-2-title">Roof Replacement</h3>
+<p class="text-on-surface-variant text-sm" id="cms-service-2-desc">Wealth of experience in slate and tiled roofs. 15-year guarantee included, with lifespan expectations of 30-50 years.</p>
+</div>
+<!-- Item 3: Repairs -->
+<div class="md:col-span-4 bento-item glass p-10 rounded-xl flex flex-col items-center justify-center group bg-primary-container/5 border-primary/20">
+<span class="material-symbols-outlined text-primary text-4xl mb-4" id="cms-service-3-icon">emergency</span>
+<h3 class="font-headline-sm text-headline-sm mb-2 text-primary" id="cms-service-3-title">Repairs &amp; Maintenance</h3>
+<p class="text-on-surface-variant text-center text-sm" id="cms-service-3-desc">No job is too small. Repairs starting from just £50 with no call-out charge. 24/7 emergency line available.</p>
+</div>
+<!-- Item 4: Fascias & Guttering -->
+<div class="md:col-span-8 bento-item glass p-10 rounded-xl flex flex-col md:flex-row gap-8 items-center group">
+<div class="flex-1">
+<span class="material-symbols-outlined text-primary text-4xl mb-4" id="cms-service-4-icon">architecture</span>
+<h3 class="font-headline-sm text-headline-sm mb-4" id="cms-service-4-title">Fascia &amp; Guttering</h3>
+<p class="text-on-surface-variant" id="cms-service-4-desc">Supply and fit all types of UPVC boards, soffits, dry verges, and cladding. Available in multiple colours and profiles. We also clean and maintain systems.</p>
+</div>
+<div class="w-full md:w-1/3 h-48 rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbgeXzfDGNboOqzRqisQFvXeJcGbkIiT-_2bZd3KPjkEP3pOedLT3aTIgo7Typ7jrxPdTrp448MT0tPVr_rzIoix_o9JpczPnoS4u-uMiY97X8gIea0oG82fzY6haTMb0L6kbxlz7B90dqHz9qseWOCNVtktMnEfHEaXBxxPIHCpVWKfJ0Car9PZ-WZc3w6bWPWFIn2GYxIuEiqE7awrecU8dfu3SZY11uK0pbIXXD01xykohL3bfpOhrAmZMv88VIcDd7vVIf-vT2">
+</div>
+</div>
+<!-- Item 5: Flat Roof Installation -->
+<div class="md:col-span-12 bento-item glass p-10 rounded-xl flex flex-col md:flex-row items-center gap-12 group bg-surface-container">
+<div class="flex-1">
+<span class="material-symbols-outlined text-primary text-4xl mb-4" id="cms-service-5-icon">layers</span>
+<h3 class="font-headline-sm text-headline-sm mb-4" id="cms-service-5-title">Flat Roof Installation</h3>
+<p class="text-on-surface-variant" id="cms-service-5-desc">Specialists in GRP fibreglass and EPDM rubber. 15-year guarantee with up to 50 years maintenance-free lifespan.</p>
+</div>
+<div class="flex flex-wrap gap-4">
+<div class="px-6 py-3 rounded-full bg-background border border-white/5 font-label-caps text-xs">GRP FIBREGLASS</div>
+<div class="px-6 py-3 rounded-full bg-background border border-white/5 font-label-caps text-xs">EPDM RUBBER</div>
+<div class="px-6 py-3 rounded-full bg-primary/20 border border-primary/30 text-primary font-label-caps text-xs">15 YEAR GUARANTEE</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials Section -->
+<section class="py-stack-lg bg-surface-container-low" id="reviews">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="text-center mb-16 gsap-reveal" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
+<span class="text-primary font-label-caps text-label-caps uppercase tracking-[0.3em]">Client Testimony</span>
+<h2 class="font-display-lg text-headline-md mt-4" id="cms-reviews-heading">Unrivalled Reputation</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="gsap-reveal glass p-8 rounded-xl flex flex-col justify-between" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
+<div>
+<div class="flex text-primary mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
+</div>
+<p class="font-body-lg text-white mb-8 italic" id="cms-review-1-quote">"Such a friendly bunch, know what they're doing. Did such a good job on my roof so I referred them to my friend who had issues with hers. She said the same! Top quality service. Top quality roofing."</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold" id="cms-review-1-initials">LF</div>
+<div>
+<h4 class="font-bold text-on-surface" id="cms-review-1-name">Lindsay Funston</h4>
+<p class="text-xs text-on-surface-variant font-label-caps uppercase" id="cms-review-1-location">Openshaw</p>
+</div>
+</div>
+</div>
+<div class="gsap-reveal glass p-8 rounded-xl flex flex-col justify-between" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
+<div>
+<div class="flex text-primary mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
+</div>
+<p class="font-body-lg text-white mb-8 italic" id="cms-review-2-quote">"Was advised to use this roofing contractors by my friend who was booked up on the day. Usually only use people I know as tradesman have a reputation for being unreliable. This company was amazing!! Very prompt, reliable and efficient. Thank you for my new roof. Wouldn't go anywhere else for my roofing needs."</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold" id="cms-review-2-initials">MC</div>
+<div>
+<h4 class="font-bold text-on-surface" id="cms-review-2-name">Michael Clegg</h4>
+<p class="text-xs text-on-surface-variant font-label-caps uppercase" id="cms-review-2-location">Rochdale</p>
+</div>
+</div>
+</div>
+<div class="gsap-reveal glass p-8 rounded-xl flex flex-col justify-between border-primary/20 bg-primary/5" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
+<div>
+<div class="flex text-primary mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">star</span>
+</div>
+<p class="font-body-lg text-white mb-8 italic" id="cms-review-3-quote">"The guys that came round really made my day. After stressing about my gutter being blocked, they came round and fixed it within minutes. Their sense of humour was 5 star. Would pay to watch them at a comedy club too haha.. double whammy"</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold" id="cms-review-3-initials">LC</div>
+<div>
+<h4 class="font-bold text-on-surface" id="cms-review-3-name">Linda Collin</h4>
+<p class="text-xs text-on-surface-variant font-label-caps uppercase" id="cms-review-3-location">Cheadle</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Coverage Map -->
+<section class="py-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="portfolio">
+<div class="mb-stack-lg gsap-reveal" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
+<h2 class="font-display-lg text-headline-md mb-4" id="cms-portfolio-heading">Craftsmanship Portfolio</h2>
+<p class="text-on-surface-variant max-w-2xl font-body-lg" id="cms-portfolio-subtext">A visual testament to our commitment to architectural integrity and precision engineering across the North West.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 h-auto">
+<div class="relative overflow-hidden rounded-xl group h-64">
+<img id="cms-portfolio-img-1" alt="Residential roof replacement" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFSGP2ihemNjP9dqhJUuftnvOmD78oJeneZpdI6eZABJYiQOco_VwZ9pOzi6vS8arUCcNDBP-BNkWg_31aPQWzA07u3OSMs-2lF91KrL3xOYupevHXtjv6_Cx6RVch8fXGaPUBDA0_5e16UGPU_w13kFddOkoB1ErzxBILcqbuLxkos78fWrv7fAhmSzm_a0ulqhuoFD4jdhzQRZq9dVfqbVA16eviKXMZHaZeRZDKIKyX7Bth36di0CZBUzlmYVjtUaPEtrxJMpmI">
+</div>
+<div class="relative overflow-hidden rounded-xl group h-64 md:col-span-2">
+<img id="cms-portfolio-img-2" alt="Luxury estate slate tiling" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_ythRv4wcJdHh5RCjppC1LSJhjmlvDJbgWczCBmcitlZYeabMHr1T2QAIpyCblQFwL8SuHZ9SIMXVVX9qT0uYGBJeLjPdOvjXfJGXErw2c2IZgDvaEk-fgQEnMsXc4y5o9RaKP71SfjJmk3J4AAFDVtdzTylrn2UjxNMkUPAtyu1AWWo6k3cO3ydmMw2bKkOIvf4bElGOsf9Lr1qH812Z1MW8vEsG3cwm3t2dHAu3i20vs3S2saQhTY2uvhB56nEZERi69K79kVx4">
+</div>
+<div class="relative overflow-hidden rounded-xl group h-64">
+<img id="cms-portfolio-img-3" alt="Master craftsman at work" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2MbD2Mza28o1L9dFVPXx1FSg95zCHrcNyAIZyEs12lKoHnwyJcz6UGf27js2VhXAJTqOmD304fdNalAlnThy68P0KYeZBe3vZjrlsLJh7vOF01FQ-qKCh2bTD4G6MDzErfoy0SScZ_vauTWOrrXdJLXk8O0ZNZkaZwW801_Zn1uk8DJrqKiAvPo1he_x8Euelr6VmstEpdHKc7NAAaBTP6X9TJD-iQHQe8C8m9cVD1ZEQaIQdyElnRXWyOPrKtQgSb6lsDIMzaRS-">
+</div>
+<div class="relative overflow-hidden rounded-xl group h-64 md:col-span-2">
+<img id="cms-portfolio-img-4" alt="Modern flat roofing" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwgvrjPdMnAL6HCKET9QJwldGyDzr-dOwoPl7wAjD8p6cVaFoDaCfetIOXfAN782cpWvly66253GF-KGdebVOysCRb61zz7_QMPI3dp6rJov7d8Fmq18a-6oz-HvR2Pvy7vF0TNPfLBG2lf272HUPC8__sELUMpyXafCHQJWseQNEph9E1MFO2f-N21YnYBs5EkJ3KOTAFVGbARKaOyEg7Y2Aec5gM75YXZlX5KtlPptZXCJ3ew5oMNjrEckjr_art2LLZEi7yNoLY">
+</div>
+<div class="relative overflow-hidden rounded-xl group h-64">
+<img id="cms-portfolio-img-5" alt="Country manor roof" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlnnXUMroouUW6aEIdEr7dp5eLyfBV4G8cJ-5QlglJdwcc9vPoyogaVtymvYXa8-VyAHAEq6l50gjGfr7PqOxPxxdBPdjyYltcoDZBebHL8HS-JrWpJ7U8YItyzPrFqeWKVc3uycAIy_0H24sj_4rlUrq87oJ2vOGf2oGXuTrRRsnaXigr7sK1Ob8SkWbF9B0IMTXKHSjzM7V6EIhRWGzuGHLEgEI-AVFcEoasMx61UI2mPZjEpVequ_aD1YwrDviyDx3_CaqPl155">
+</div>
+<div class="relative overflow-hidden rounded-xl group h-64">
+<img id="cms-portfolio-img-6" alt="Chimney restoration" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0QgYzV-QvZZ5OBSY9QZkQBxqPX7T0RnecYtbeuNFj7UYNmuBB-YbmATJPB9R5QypoInAe3EJnM7aXUknCIYZx4bQj0r_7C0lVzKqfEYQ-B--Sd5Og2ATSHle29BdlTC3q-chYkIQokdxf7hgygtVCiGSnlCiQM2QODoiORBU74EQIwF8XMxmqBVFz2w6vf-Xq2wB68djMBdbTjOPSzVqZ8NCeJkw3mWb3pdL8oFGlRvICzOfkOVs56aibBTa2I5FCXl5guyrVZQ6n">
+</div>
+<div class="relative overflow-hidden rounded-xl group h-64">
+<img id="cms-portfolio-img-7" alt="Modern roof extension" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_I5B6JgbZlCu8bfI1EP_LGwpoe81noB1fv5a74tUCkg01GwtuTzMR8JODfwct6fqaZPsrTnuDHBcqW0GQ066g5061wl-Jpr9MQ0GI8vUv5OWKaJh4r1U_icCPRNAdST1Ecg5JgCiISYZhNZ_t9KuUVU2RaENPywPqUMC8MsPZJlPcYAw4wT3aqvP9cBw1pE8_-MmLpHjW2ZUOTh_Ist4-LUiEK91n-wrGXotOaFLMOopl2tm4fG3Pz5IQUKUzytD5-w3E3uO3W2dZ">
+</div>
+<div class="relative overflow-hidden rounded-xl group h-64">
+<img id="cms-portfolio-img-8" alt="Roof ridge detail" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3RjRkTJVHKTqoaIldWNtFWcaaOOBd_Yyq2kFURukV_RwJeEwE46sW-OASwMUoBuhCI7AL2PCr1E28DcGzvXqQicr6kyHZIv-Y-Lr9JGjTo2dbpzMdh4l2-oDRa7Ih4WcZin1q2cg0_kA4eNdq-Ledyk3bpsDKBNieQ44gwo4ltvQXfZaJrQuwRPLqSoDqe6q1nvi84weXsyzhKy6_wu21fX56dpM5JW-SbEEUvEj8LMkjvmfhZdHIgtHTjvJDm2U3_O4pMot5TJft">
+</div>
+<div class="relative overflow-hidden rounded-xl group h-64 md:col-span-2">
+<img id="cms-portfolio-img-9" alt="Multi-level luxury roofing" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkUXk64xoztl5cF1dh3WSt9SHlXX4LBY7hJCAT5YFLb86GYV4RU-7rFL2eenfFEN0qZerWcQ5ctnb9fE5Lhzu_poZn-w5O5ssTLhmNkSJNFScFBoC29lQ67F9atixKoQDGBEYH6nH1U-tuUELkCnLBHELz7REzfcklpySoS3UViIlJ3OMd5piCWYaoV25I0WDzBojL1B10RkQVDocAzQdBx76qIbu7YotSTxVoRCcXcMJ7CL6VqsN27wVukfciyQrdKidG-Rsrm54_">
+</div>
+<div class="relative overflow-hidden rounded-xl group h-64">
+<img id="cms-portfolio-img-10" alt="GRP fibreglass finish" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABFyqHHfhm8c1IcVFegGQ3dz7cYGDbQlYhKTWFyPXyibm2KxC-cxoEhpl1KGksNEonSSyswRx2G08PF5F4591RvUVUXhd7H-2L_f0UZfoFfm4dtLQkDpQJIesWGj2E4jS4NFAsiPoWBHRlnb_haf626L_rWK4EjuxlsYijdCIYOPEBKOkDWFl0Z5-CBRdHmtSZKNF6ZL2auxnm2ssVKfKzAIuSTN423PR4goag9IBBnobw41RTwkc6yR6Efx4JRa5BTc-Y1syKbt6r">
+</div>
+<div class="relative overflow-hidden rounded-xl group h-64">
+<img id="cms-portfolio-img-11" alt="Roofer checking alignment" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe2v7O5bZtYWhtrn0hobKGARWcx7yJMnMXfQKEaA_XHxI8nn1cH_FOcP7vgCSlTIW1vm2nvsx0pfzGgXLeDoIVo-P4f1JttQFh-xQv_9n0DOsREx8l04zqBjRLPcW6aQj8j1CwEWH8nde_vnf6l9TBVxiWjap4hdRVjccvgzISXOZPpcRFW2udlrEiMCuoxpuDSvuJcPPh44KuAEuAc0uM4pm3sMIMtN_7XZ7NYxRpkRBj4m9cKwtxxZEAMzDc-bdsPLt7U1ZKp1eK">
+</div>
+<div class="relative overflow-hidden rounded-xl group h-64 md:col-span-4">
+<img id="cms-portfolio-img-12" alt="Suburban roof restoration projects" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOrICZ5Ynkg_xqZ-2zg7IKSjMIUdrlj43-vPDPsrKTRDknaPRWdbKOEUTgfGHAd7rspYaw6ewnYU7Dyv-AQFO_cDsWjByO-ZbeUIBBCF3f_2hJrggWj4t08LWDmVe6NDhRs8RYyB3tbQxJ8EsmysmMfSYnyeaMTUNZ0gCbkFUyFQrQWfv1PdLmvcnV8WMA0PKjM2Mo6hbX4g2eAnkiJtkGciYW3cNi7Ow-errAUlXtxpuBLIrOGW_G4Wt9DOR1EFJAJ8VNQ8vp7HuD">
+</div>
+</div>
+</section><section class="py-stack-lg bg-surface-container-lowest" id="coverage">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="text-center mb-16 gsap-reveal" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
+<span class="text-primary font-label-caps text-label-caps uppercase tracking-[0.3em]">Operating Radius</span>
+<h2 class="font-display-lg text-headline-md mt-4" id="cms-coverage-heading">Full Regional Coverage</h2>
+<p class="text-on-surface-variant max-w-2xl mx-auto mt-4 font-body-lg" id="cms-coverage-subtext">Specializing in high-end architectural roofing across Greater Manchester, Cheshire, and surrounding regions. Select a marker to view local expertise.</p>
+</div>
+<div class="rounded-xl overflow-hidden glass border border-white/5 h-[600px] gsap-reveal shadow-2xl leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" id="map" tabindex="0" style="position: relative; translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);"><div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(0px, 0px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 18; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt="" src="https://c.basemaps.cartocdn.com/dark_all/10/505/331@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(354px, 250px, 0px); opacity: 1;"><img alt="" src="https://b.basemaps.cartocdn.com/dark_all/10/505/330@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(354px, -6px, 0px); opacity: 1;"><img alt="" src="https://b.basemaps.cartocdn.com/dark_all/10/504/331@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(98px, 250px, 0px); opacity: 1;"><img alt="" src="https://a.basemaps.cartocdn.com/dark_all/10/506/331@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(610px, 250px, 0px); opacity: 1;"><img alt="" src="https://a.basemaps.cartocdn.com/dark_all/10/505/332@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(354px, 506px, 0px); opacity: 1;"><img alt="" src="https://a.basemaps.cartocdn.com/dark_all/10/504/330@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(98px, -6px, 0px); opacity: 1;"><img alt="" src="https://c.basemaps.cartocdn.com/dark_all/10/506/330@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(610px, -6px, 0px); opacity: 1;"><img alt="" src="https://c.basemaps.cartocdn.com/dark_all/10/504/332@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(98px, 506px, 0px); opacity: 1;"><img alt="" src="https://b.basemaps.cartocdn.com/dark_all/10/506/332@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(610px, 506px, 0px); opacity: 1;"><img alt="" src="https://a.basemaps.cartocdn.com/dark_all/10/503/331@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-158px, 250px, 0px); opacity: 1;"><img alt="" src="https://b.basemaps.cartocdn.com/dark_all/10/507/331@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(866px, 250px, 0px); opacity: 1;"><img alt="" src="https://c.basemaps.cartocdn.com/dark_all/10/503/330@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-158px, -6px, 0px); opacity: 1;"><img alt="" src="https://a.basemaps.cartocdn.com/dark_all/10/507/330@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(866px, -6px, 0px); opacity: 1;"><img alt="" src="https://b.basemaps.cartocdn.com/dark_all/10/503/332@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-158px, 506px, 0px); opacity: 1;"><img alt="" src="https://c.basemaps.cartocdn.com/dark_all/10/507/332@2x.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(866px, 506px, 0px); opacity: 1;"></div></div></div><div class="leaflet-pane leaflet-overlay-pane"></div><div class="leaflet-pane leaflet-shadow-pane"></div><div class="leaflet-pane leaflet-marker-pane"><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(513px, 323px, 0px); z-index: 323;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(520px, 403px, 0px); z-index: 403;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(487px, 370px, 0px); z-index: 370;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(524px, 318px, 0px); z-index: 318;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(519px, 294px, 0px); z-index: 294;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(577px, 158px, 0px); z-index: 158;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(537px, 142px, 0px); z-index: 142;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(621px, 125px, 0px); z-index: 125;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(551px, 232px, 0px); z-index: 232;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(524px, 509px, 0px); z-index: 509;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(519px, 540px, 0px); z-index: 540;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(418px, 541px, 0px); z-index: 541;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(597px, 595px, 0px); z-index: 595;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(474px, 185px, 0px); z-index: 185;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(459px, 118px, 0px); z-index: 118;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(484px, 257px, 0px); z-index: 257;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(605px, 245px, 0px); z-index: 245;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(690px, 238px, 0px); z-index: 238;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(575px, 288px, 0px); z-index: 288;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(575px, 409px, 0px); z-index: 409;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(570px, 470px, 0px); z-index: 470;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(647px, 428px, 0px); z-index: 428;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(377px, 204px, 0px); z-index: 204;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(293px, 179px, 0px); z-index: 179;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(305px, 241px, 0px); z-index: 241;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(462px, 315px, 0px); z-index: 315;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(441px, 283px, 0px); z-index: 283;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(411px, 294px, 0px); z-index: 294;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(434px, 436px, 0px); z-index: 436;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(454px, 392px, 0px); z-index: 392;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(464px, 364px, 0px); z-index: 364;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(623px, 316px, 0px); z-index: 316;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div><div class="leaflet-marker-icon custom-div-icon leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -6px; margin-top: -6px; width: 12px; height: 12px; transform: translate3d(629px, 363px, 0px); z-index: 363;"><div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div></div></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div><div class="leaflet-proxy leaflet-zoom-animated"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#" title="Zoom in" role="button" aria-label="Zoom in" aria-disabled="false"><span aria-hidden="true" class="">+</span></a><a class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button" aria-label="Zoom out" aria-disabled="false"><span aria-hidden="true" class="">−</span></a></div></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com" title="A JavaScript library for interactive maps" class=""><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" class="leaflet-attribution-flag"><path fill="#4C7BE1" d="M0 0h12v4H0z"></path><path fill="#FFD500" d="M0 4h12v3H0z"></path><path fill="#E0BC00" d="M0 7h12v1H0z"></path></svg> Leaflet</a> <span aria-hidden="true" class="">|</span> © OpenStreetMap contributors © CARTO</div></div></div></div>
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4 mt-12">
+<div class="p-4 glass rounded-lg border-l-4 border-primary">
+<h4 class="font-bold text-primary mb-1" id="cms-region-1-name">Manchester</h4>
+<p class="text-[10px] text-on-surface-variant leading-tight" id="cms-region-1-desc">City Centre, Didsbury, Chorlton, Ancoats &amp; more.</p>
+</div>
+<div class="p-4 glass rounded-lg border-l-4 border-primary">
+<h4 class="font-bold text-primary mb-1" id="cms-region-2-name">Cheshire</h4>
+<p class="text-[10px] text-on-surface-variant leading-tight" id="cms-region-2-desc">Wilmslow, Alderley Edge, Knutsford, Poynton.</p>
+</div>
+<div class="p-4 glass rounded-lg border-l-4 border-primary">
+<h4 class="font-bold text-primary mb-1" id="cms-region-3-name">Stockport</h4>
+<p class="text-[10px] text-on-surface-variant leading-tight" id="cms-region-3-desc">Bramhall, Cheadle, Marple, Romiley.</p>
+</div>
+<div class="p-4 glass rounded-lg border-l-4 border-primary">
+<h4 class="font-bold text-primary mb-1" id="cms-region-4-name">Rochdale</h4>
+<p class="text-[10px] text-on-surface-variant leading-tight" id="cms-region-4-desc">Norden, Bamford, Littleborough, Milnrow.</p>
+</div>
+<div class="p-4 glass rounded-lg border-l-4 border-primary">
+<h4 class="font-bold text-primary mb-1" id="cms-region-5-name">Trafford</h4>
+<p class="text-[10px] text-on-surface-variant leading-tight" id="cms-region-5-desc">Altrincham, Sale, Timperley, Bowdon.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section class="py-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="contact">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+        <!-- Left Column: Contact Form -->
+        <div class="gsap-reveal">
+            <div class="mb-12">
+                <span class="text-primary font-label-caps text-label-caps uppercase tracking-[0.3em]">Get in Touch</span>
+                <h2 class="font-display-lg text-headline-md mt-4" id="cms-contact-heading">Project Inquiry</h2>
+            </div>
+            <form class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Name</label>
+                        <input type="text" placeholder="Your full name" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Email</label>
+                        <input type="email" placeholder="your@email.com" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Phone</label>
+                        <input type="tel" placeholder="Contact number" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Address</label>
+                        <input type="text" placeholder="Project location" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30">
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Subject</label>
+                    <input type="text" placeholder="How can we help?" class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30">
+                </div>
+                <div class="space-y-2">
+                    <label class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant">Message</label>
+                    <textarea rows="4" placeholder="Tell us about your roofing requirements..." class="w-full bg-surface-container-low border border-white/10 rounded-lg px-4 py-3 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/30 resize-none"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-primary text-on-primary py-4 rounded-lg font-label-caps uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-primary/10">Send Message</button>
+            </form>
+        </div>
+
+        <!-- Right Column: Contact Info -->
+        <div class="gsap-reveal lg:pl-12 flex flex-col justify-center">
+            <div class="glass p-10 rounded-xl border border-white/5">
+                <h3 class="font-display-lg text-headline-sm text-primary mb-8">CONTACT</h3>
+                
+                <div class="space-y-8">
+                    <div class="flex gap-4">
+                        <span class="material-symbols-outlined text-primary">location_on</span>
+                        <div>
+                            <h4 class="font-bold text-on-surface mb-1">Headquarters</h4>
+                            <p class="text-on-surface-variant text-body-md leading-relaxed" id="cms-contact-address">62-66 Regency Court, Deansgate,<br>Manchester, M3 2EN</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <span class="material-symbols-outlined text-primary">mail</span>
+                        <div>
+                            <h4 class="font-bold text-on-surface mb-1">Email</h4>
+                            <p class="text-on-surface-variant text-body-md" id="cms-contact-email">Enquiries@khroofs.co.uk</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 pt-4 border-t border-white/5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant" id="cms-office-1-label">Manchester Office</span>
+                            <span class="text-primary font-bold" id="cms-office-1-phone">0161 825 7408</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant" id="cms-office-2-label">Cheshire Office</span>
+                            <span class="text-primary font-bold" id="cms-office-2-phone">01625 241 632</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-label-caps uppercase tracking-widest text-on-surface-variant" id="cms-office-3-label">Rochdale Office</span>
+                            <span class="text-primary font-bold" id="cms-office-3-phone">01706 540 527</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-white/5 pt-stack-lg pb-12">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="col-span-1 md:col-span-1">
+<div class="font-display-lg text-headline-md text-primary mb-6">K.H. Roofing</div>
+<p class="text-on-secondary-container text-body-md mb-8" id="cms-footer-tagline">Architectural integrity and permanent solutions for the most prestigious properties in the North West.</p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-primary hover:text-primary transition-colors" href="#">
+<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.599 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg>
+</a>
+<a class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-primary hover:text-primary transition-colors" href="#">
+<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+</a>
+</div>
+</div>
+<div>
+<h5 class="text-white font-bold mb-6">Expertise</h5>
+<ul class="space-y-4 text-on-secondary-container">
+<li class=""><a class="hover:text-primary transition-colors" href="#">Residential Slating</a></li>
+<li class=""><a class="hover:text-primary transition-colors" href="#">Flat Roof Systems</a></li>
+<li class=""><a class="hover:text-primary transition-colors" href="#">UPVC Guttering</a></li>
+<li class=""><a class="hover:text-primary transition-colors" href="#">Emergency Repair</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-white font-bold mb-6">Company</h5>
+<ul class="space-y-4 text-on-secondary-container">
+<li class=""><a class="hover:text-primary transition-colors" href="#about">About Us</a></li>
+<li class=""><a class="hover:text-primary transition-colors" href="#services">Services</a></li>
+<li class=""><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li class=""><a class="hover:text-primary transition-colors" href="#">Insurance</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-white font-bold mb-6">Support</h5>
+<div class="flex items-center gap-3 text-on-secondary-container mb-4">
+<span class="material-symbols-outlined text-primary">phone_in_talk</span>
+<span class="" id="cms-footer-phone">0800 123 4567</span>
+</div>
+<div class="flex items-center gap-3 text-on-secondary-container mb-6">
+<span class="material-symbols-outlined text-primary">mail</span>
+<span class="" id="cms-footer-email">info@khroofing.co.uk</span>
+</div>
+<button class="w-full bg-surface-container-high border border-white/10 text-white py-3 rounded-lg hover:bg-white hover:text-background transition-all font-label-caps uppercase text-[10px] tracking-widest">
+                    Request Callback
+                </button>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-stack-lg pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-on-secondary-container text-sm" id="cms-footer-copyright">© 2024 K.H. Roofing. Architectural Integrity. Permanent Solutions.</p>
+<div class="flex items-center gap-2">
+<span class="text-xs text-on-secondary-container">Trusted By:</span>
+<span class="text-primary font-bold">NFRC Member</span>
+</div>
+</div>
+</footer>
+<script>
+        // Map Initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            const map = L.map('map', {
+                center: [53.5000, -2.1800], // Centered between Manchester, Rochdale and Stockport
+                zoom: 10,
+                scrollWheelZoom: false
+            });
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+            }).addTo(map);
+
+            const bronzeIcon = L.divIcon({
+                className: 'custom-div-icon',
+                html: `<div style="background-color: #c5a880; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #121316; box-shadow: 0 0 8px #c5a880;"></div>`,
+                iconSize: [12, 12],
+                iconAnchor: [6, 6]
+            });
+
+            // Comprehensive Location Data
+            const regionData = [
+                { region: "MANCHESTER", towns: ["City Centre", "Fallowfield", "Withington", "Didsbury", "Openshaw", "Gorton", "Deansgate", "Castlefield", "Burnage", "Levenshulme", "Chorlton", "Cheetham Hill", "Harpurhey", "Crumpsall", "Ancoats"], coords: [53.4808, -2.2426] },
+                { region: "ROCHDALE", towns: ["Middleton", "Heywood", "Bamford", "Castleton", "Spotland", "Norden", "Newhey", "Milnrow", "Healey", "Whitworth", "Littleborough", "Wardle", "Kingsway", "Hopwood", "Balderstone", "Kirkholt"], coords: [53.6150, -2.1550] },
+                { region: "CHESHIRE", towns: ["Wilmslow", "Macclesfield", "Prestbury", "Poynton", "Hale", "Alderly Edge", "Knutsford"], coords: [53.3283, -2.2281] },
+                { region: "BURY", towns: ["Ramsbottom", "Tottington", "Radcliffe", "Whitefield", "Prestwich"], coords: [53.5933, -2.2964] },
+                { region: "OLDHAM", towns: ["Chadderton", "Failsworth", "Hollinwood", "East Oldham", "West Oldham", "Royton", "Shaw and Crompton", "Saddleworth", "Lees"], coords: [53.5444, -2.1169] },
+                { region: "STOCKPORT", towns: ["Bramhall", "Cheadle", "Cheadle Hulme", "Marple", "Bredbury", "Reddish", "Woodley", "Romiley"], coords: [53.4106, -2.1575] },
+                { region: "BOLTON", towns: ["Farnworth", "Westhoughton", "Horwich", "Little Lever", "Kearsley", "Turton", "Blackrod"], coords: [53.5781, -2.4297] },
+                { region: "TAMESIDE", towns: ["Ashton-under-Lyne", "Audenshaw", "Denton", "Droylsden", "Dukinfield", "Hyde", "Longdendale", "Mossley", "Stalybridge"], coords: [53.4861, -2.0911] },
+                { region: "SALFORD", towns: ["Eccles", "Irlam", "Little Hulton", "Swinton", "Worsley", "Walkden"], coords: [53.4875, -2.3132] },
+                { region: "TRAFFORD", towns: ["Altrincham", "Stretford", "Urmston", "Timperley", "Partington", "Sale"], coords: [53.4475, -2.3275] }
+            ];
+
+            // Specific Coordinates for sub-locations (Approximated for visual spread)
+            const markers = [
+                // MANCHESTER (Core)
+                { name: "Manchester City Centre", coords: [53.4808, -2.2426], region: "Manchester" },
+                { name: "Didsbury", coords: [53.4150, -2.2330], region: "Manchester" },
+                { name: "Chorlton", coords: [53.4420, -2.2780], region: "Manchester" },
+                { name: "Ancoats", coords: [53.4850, -2.2280], region: "Manchester" },
+                { name: "Cheetham Hill", coords: [53.5040, -2.2340], region: "Manchester" },
+                // ROCHDALE
+                { name: "Rochdale (Central)", coords: [53.6150, -2.1550], region: "Rochdale" },
+                { name: "Norden", coords: [53.6280, -2.2100], region: "Rochdale" },
+                { name: "Littleborough", coords: [53.6420, -2.0940], region: "Rochdale" },
+                { name: "Middleton", coords: [53.5550, -2.1910], region: "Rochdale" },
+                // CHESHIRE
+                { name: "Wilmslow", coords: [53.3283, -2.2281], region: "Cheshire" },
+                { name: "Alderley Edge", coords: [53.3030, -2.2350], region: "Cheshire" },
+                { name: "Knutsford", coords: [53.3020, -2.3730], region: "Cheshire" },
+                { name: "Macclesfield", coords: [53.2580, -2.1270], region: "Cheshire" },
+                // BURY
+                { name: "Bury (Central)", coords: [53.5933, -2.2964], region: "Bury" },
+                { name: "Ramsbottom", coords: [53.6480, -2.3170], region: "Bury" },
+                { name: "Prestwich", coords: [53.5350, -2.2820], region: "Bury" },
+                // OLDHAM
+                { name: "Oldham (Central)", coords: [53.5444, -2.1169], region: "Oldham" },
+                { name: "Saddleworth", coords: [53.5500, -2.0000], region: "Oldham" },
+                { name: "Failsworth", coords: [53.5090, -2.1580], region: "Oldham" },
+                // STOCKPORT
+                { name: "Stockport (Central)", coords: [53.4106, -2.1575], region: "Stockport" },
+                { name: "Bramhall", coords: [53.3600, -2.1640], region: "Stockport" },
+                { name: "Marple", coords: [53.3950, -2.0580], region: "Stockport" },
+                // BOLTON
+                { name: "Bolton (Central)", coords: [53.5781, -2.4297], region: "Bolton" },
+                { name: "Horwich", coords: [53.5980, -2.5450], region: "Bolton" },
+                { name: "Westhoughton", coords: [53.5480, -2.5280], region: "Bolton" },
+                // SALFORD
+                { name: "Salford City", coords: [53.4875, -2.3132], region: "Salford" },
+                { name: "Swinton", coords: [53.5130, -2.3410], region: "Salford" },
+                { name: "Worsley", coords: [53.5040, -2.3830], region: "Salford" },
+                // TRAFFORD
+                { name: "Altrincham", coords: [53.3880, -2.3510], region: "Trafford" },
+                { name: "Sale", coords: [53.4240, -2.3240], region: "Trafford" },
+                { name: "Stretford", coords: [53.4475, -2.3100], region: "Trafford" },
+                // TAMESIDE
+                { name: "Ashton-under-Lyne", coords: [53.4861, -2.0911], region: "Tameside" },
+                { name: "Hyde", coords: [53.4480, -2.0830], region: "Tameside" }
+            ];
+
+            markers.forEach(loc => {
+                // Find matching region data for the full list of towns
+                const fullRegion = regionData.find(r => r.region.toLowerCase() === loc.region.toLowerCase());
+                const townList = fullRegion ? `<div style="margin-top:5px; font-size:10px; color:#b4b4bf; max-width:150px;">${fullRegion.towns.join(', ')}</div>` : '';
+                
+                L.marker(loc.coords, { icon: bronzeIcon })
+                    .addTo(map)
+                    .bindPopup(`
+                        <div style="font-family:'Space Grotesk', sans-serif">
+                            <b style="color:#c5a880; font-size:14px; text-transform:uppercase; letter-spacing:1px">${loc.name}</b><br/>
+                            <span style="font-size:11px; color:#e3e2e6">Premium Service Area</span>
+                            ${townList}
+                        </div>
+                    `);
+            });
+
+            // GSAP Animations
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.from(".gsap-hero-left", {
+                x: -100,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power4.out"
+            });
+
+            gsap.from(".gsap-hero-right", {
+                x: 100,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power4.out"
+            });
+
+            gsap.utils.toArray(".gsap-reveal").forEach(element => {
+                gsap.from(element, {
+                    scrollTrigger: {
+                        trigger: element,
+                        start: "top 85%",
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power3.out"
+                });
+            });
+
+            // Mobile Menu Logic
+            const menuToggle = document.getElementById('menu-toggle');
+            const menuClose = document.getElementById('menu-close');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            const menuTl = gsap.timeline({ paused: true });
+            menuTl.to(mobileMenu, {
+                x: 0,
+                duration: 0.6,
+                ease: "power4.inOut"
+            }).from("#mobile-menu a", {
+                y: 20,
+                opacity: 0,
+                stagger: 0.1,
+                duration: 0.4
+            }, "-=0.2");
+
+            menuToggle.addEventListener('click', () => menuTl.play());
+            menuClose.addEventListener('click', () => menuTl.reverse());
+        });
+
+        function toggleAccordion(button) {
+            const item = button.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                otherItem.classList.remove('active');
+            });
+
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        function toggleMenu() {
+            document.getElementById('menu-close').click();
+        }
+    </script>
+
+<script src="content-loader.js"></script>
+
+</body></html>

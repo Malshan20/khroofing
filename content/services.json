@@ -1,0 +1,31 @@
+{
+  "heading": "Craftsmanship Services",
+  "subtext": "Precision engineering meets aesthetic perfection. Every roof is a masterpiece of durability.",
+  "items": [
+    {
+      "icon": "grid_view",
+      "title": "Slating &amp; Tiling",
+      "description": "Our roofing specialists replace broken slates and fallen tiles. We provide expert advice on the best action and materials pledge optimal quality."
+    },
+    {
+      "icon": "home_repair_service",
+      "title": "Roof Replacement",
+      "description": "Wealth of experience in slate and tiled roofs. 15-year guarantee included, with lifespan expectations of 30-50 years."
+    },
+    {
+      "icon": "emergency",
+      "title": "Repairs &amp; Maintenance",
+      "description": "No job is too small. Repairs starting from just £50 with no call-out charge. 24/7 emergency line available."
+    },
+    {
+      "icon": "architecture",
+      "title": "Fascia &amp; Guttering",
+      "description": "Supply and fit all types of UPVC boards, soffits, dry verges, and cladding. Available in multiple colours and profiles. We also clean and maintain systems."
+    },
+    {
+      "icon": "layers",
+      "title": "Flat Roof Installation",
+      "description": "Specialists in GRP fibreglass and EPDM rubber. 15-year guarantee with up to 50 years maintenance-free lifespan."
+    }
+  ]
+}

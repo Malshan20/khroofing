@@ -1,0 +1,11 @@
+{
+  "heading": "Full Regional Coverage",
+  "subtext": "Specializing in high-end architectural roofing across Greater Manchester, Cheshire, and surrounding regions. Select a marker to view local expertise.",
+  "regions": [
+    { "name": "Manchester", "description": "City Centre, Didsbury, Chorlton, Ancoats &amp; more." },
+    { "name": "Cheshire", "description": "Wilmslow, Alderley Edge, Knutsford, Poynton." },
+    { "name": "Stockport", "description": "Bramhall, Cheadle, Marple, Romiley." },
+    { "name": "Rochdale", "description": "Norden, Bamford, Littleborough, Milnrow." },
+    { "name": "Trafford", "description": "Altrincham, Sale, Timperley, Bowdon." }
+  ]
+}

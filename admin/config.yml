@@ -1,0 +1,146 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Where uploaded media (e.g. new portfolio photos) will be stored in the repo,
+# and the path the live site will use to reference them.
+media_folder: "content/uploads"
+public_folder: "/content/uploads"
+
+publish_mode: simple
+
+collections:
+  - name: "hero"
+    label: "Hero Section"
+    files:
+      - file: "content/hero.json"
+        label: "Hero Content"
+        name: "hero"
+        fields:
+          - { label: "Heading Line 1", name: "heading_line1", widget: "string" }
+          - { label: "Heading Highlight Word", name: "heading_highlight", widget: "string" }
+          - { label: "Heading Line 2", name: "heading_line2", widget: "string" }
+          - { label: "Subtext", name: "subtext", widget: "text" }
+          - { label: "Badge 1 Text", name: "badge_1", widget: "string" }
+          - { label: "Badge 2 Text", name: "badge_2", widget: "string" }
+          - { label: "Badge 3 Text", name: "badge_3", widget: "string" }
+          - { label: "Hero Image", name: "image", widget: "image" }
+          - { label: "Image Location Tag", name: "image_location_tag", widget: "string" }
+
+  - name: "about"
+    label: "About / Heritage Section"
+    files:
+      - file: "content/about.json"
+        label: "About Content"
+        name: "about"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Paragraph", name: "text", widget: "text" }
+          - { label: "Stat 1 Number", name: "stat1_number", widget: "string" }
+          - { label: "Stat 1 Label", name: "stat1_label", widget: "string" }
+          - { label: "Stat 2 Number", name: "stat2_number", widget: "string" }
+          - { label: "Stat 2 Label", name: "stat2_label", widget: "string" }
+          - { label: "Image", name: "image", widget: "image" }
+
+  - name: "services"
+    label: "Services Section"
+    files:
+      - file: "content/services.json"
+        label: "Services Content"
+        name: "services"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Subtext", name: "subtext", widget: "text" }
+          - label: "Service Items"
+            name: "items"
+            widget: "list"
+            allow_add: false
+            allow_delete: false
+            fields:
+              - { label: "Icon (Material Symbols name)", name: "icon", widget: "string", hint: "e.g. grid_view, home_repair_service, emergency, architecture, layers — see fonts.google.com/icons" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+
+  - name: "testimonials"
+    label: "Testimonials Section"
+    files:
+      - file: "content/testimonials.json"
+        label: "Testimonials Content"
+        name: "testimonials"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - label: "Reviews"
+            name: "items"
+            widget: "list"
+            allow_add: false
+            allow_delete: false
+            fields:
+              - { label: "Quote", name: "quote", widget: "text" }
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Location", name: "location", widget: "string" }
+              - { label: "Initials", name: "initials", widget: "string" }
+
+  - name: "portfolio"
+    label: "Portfolio Section"
+    files:
+      - file: "content/portfolio.json"
+        label: "Portfolio Content"
+        name: "portfolio"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Subtext", name: "subtext", widget: "text" }
+          - label: "Images"
+            name: "images"
+            widget: "list"
+            allow_add: false
+            allow_delete: false
+            fields:
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Alt Text", name: "alt", widget: "string" }
+
+  - name: "coverage"
+    label: "Coverage Section"
+    files:
+      - file: "content/coverage.json"
+        label: "Coverage Content"
+        name: "coverage"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Subtext", name: "subtext", widget: "text" }
+          - label: "Region Cards"
+            name: "regions"
+            widget: "list"
+            allow_add: false
+            allow_delete: false
+            fields:
+              - { label: "Region Name", name: "name", widget: "string" }
+              - { label: "Towns / Description", name: "description", widget: "string" }
+
+  - name: "contact"
+    label: "Contact Section"
+    files:
+      - file: "content/contact.json"
+        label: "Contact Content"
+        name: "contact"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Headquarters Address", name: "address", widget: "text", hint: "You can use <br> for a line break" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Office 1 Label", name: "office_1_label", widget: "string" }
+          - { label: "Office 1 Phone", name: "office_1_phone", widget: "string" }
+          - { label: "Office 2 Label", name: "office_2_label", widget: "string" }
+          - { label: "Office 2 Phone", name: "office_2_phone", widget: "string" }
+          - { label: "Office 3 Label", name: "office_3_label", widget: "string" }
+          - { label: "Office 3 Phone", name: "office_3_phone", widget: "string" }
+
+  - name: "footer"
+    label: "Footer"
+    files:
+      - file: "content/footer.json"
+        label: "Footer Content"
+        name: "footer"
+        fields:
+          - { label: "Tagline", name: "tagline", widget: "text" }
+          - { label: "Phone", name: "phone", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Copyright Text", name: "copyright", widget: "string" }
